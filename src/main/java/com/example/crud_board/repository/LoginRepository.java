@@ -4,7 +4,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import com.example.crud_board.entity.LoginEntity;
+import com.example.crud_board.domain.LoginEntity;
 
 @Repository
 public interface LoginRepository extends JpaRepository<LoginEntity, Long> {

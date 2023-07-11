@@ -1,4 +1,4 @@
-package com.example.crud_board.entity;
+package com.example.crud_board.domain;
 
 import java.sql.Date;
 
