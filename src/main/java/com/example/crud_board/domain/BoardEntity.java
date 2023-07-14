@@ -44,7 +44,7 @@ public class BoardEntity {
 	public BoardEntity(BoardDto boardDto) {
 		this.boardTitle = boardDto.getBoardTitle();
 		this.boardContent = boardDto.getBoardContent();
-		this.boardFilePath = null;
+		this.boardFilePath = boardDto.getBoardFilePath();
 		this.userId = boardDto.getUserId();
 		this.boardBlock = boardDto.getBoardBlock();
 		this.boardDate = java.sql.Date.valueOf(boardDto.getBoardDate());

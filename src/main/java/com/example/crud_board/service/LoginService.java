@@ -12,7 +12,7 @@ public class LoginService {
 	LoginRepository loginRepository;
 	
 	public boolean isOkLogin(LoginDto loginDto) {
-		if(loginDto.getUserPw().equals(loginRepository.getPassword(loginDto.getUserId()))) {
+		if(loginDto.getPassword().equals(loginRepository.getPassword(loginDto.getUsername()))) {
 			return true;
 		}
 		
