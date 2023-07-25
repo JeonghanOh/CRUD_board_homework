@@ -42,6 +42,6 @@ public class BoardService {
 	}
 	
 	public void updateByBoardId(BoardDto boardDto) {
-		boardRepository.updateByBoardId(boardDto.getBoardId(), boardDto.getBoardTitle(), boardDto.getBoardContent());
+		boardRepository.updateByBoardId(boardDto.getBoardId(), boardDto.getBoardTitle(), boardDto.getBoardContent(), boardDto.getBoardFilePath());
 	}
 }

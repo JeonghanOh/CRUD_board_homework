@@ -10,13 +10,12 @@
 
 <script setup>
 import axios from 'axios';
-import { inject, ref } from 'vue';
+import {ref, inject } from 'vue';
 import { useRouter } from 'vue-router';
 
 const router = useRouter();
 
-// 전역 변수 주입
-const globalVariable = inject('globalVariable');
+const loggedIn = inject('globalVariable');
 
 // 폼 입력값 초기화를 위해 ref로 선언
 const username = ref('');
@@ -34,7 +33,7 @@ const submitLoginForm = (event) => {
       // 로그인 성공
       console.log(response.data);
       console.log(router);
-      globalVariable.value = true;
+      loggedIn.value = true;
       router.push('/'); // 로그인 성공 시 홈 페이지로 이동
     })
     .catch(error => {

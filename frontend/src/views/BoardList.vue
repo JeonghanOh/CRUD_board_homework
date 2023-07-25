@@ -1,14 +1,25 @@
 <template>
   <div>
-    <input type="text" v-model="searchKeyword" placeholder="검색어를 입력하세요" />
-    <button @click="search">검색</button>
-
-    <ul v-if="responseData">
-      <li v-for="item in responseData.content" :key="item.boardId">
-        <a @click="redirectToDetail(item.boardId)">{{ item.boardTitle }}</a>
-      </li>
-    </ul>
-
+    <div class="search">
+      <input type="text" v-model="searchKeyword" placeholder="검색어를 입력하세요" />
+      <button @click="search">검색</button>
+    </div>
+    <div class="board">
+      <table v-if="responseData" class="center">
+        <tr class="name">
+          <th>번호</th>
+          <th class="title">제목</th>
+          <th class="writer">작성자</th>
+          <th class="date">등록일</th>
+        </tr>
+        <tr v-for="item in responseData.content" :key="item.boardId">
+          <td>{{ item.boardId }}</td>
+          <td @click="redirectToDetail(item.boardId)">{{ item.boardTitle }}</td>
+          <td>{{ item.userId }}</td>
+          <td>{{ item.boardDate }}</td>
+        </tr>
+      </table>
+    </div>
     <div v-if="responseData && responseData.totalPages > 1">
       <button v-for="pageNumber in responseData.totalPages" :key="pageNumber" @click="changePage(pageNumber)">
         {{ pageNumber }}
@@ -76,3 +87,41 @@ onMounted(() => {
   fetchData()
 })
 </script>
+
+<style scoped>
+.name th{
+  border-top: 1px solid #42B983;
+  border-bottom: 1px solid #42B983;
+}
+
+.center tr{
+  margin-bottom: 5px;
+}
+
+table {
+  border-collapse: collapse; /* 테이블 경계 병합 */
+}
+
+.center{
+  margin: 0 auto;
+}
+
+.title{
+  width: 400px;
+}
+.writer{
+  width: 200px;
+}
+
+.date{
+  width: 100px;
+}
+
+.search{
+  margin-bottom: 30px;
+}
+
+.board{
+  margin-bottom: 30px;
+}
+</style>

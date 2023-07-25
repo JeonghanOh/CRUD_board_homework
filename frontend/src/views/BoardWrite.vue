@@ -2,12 +2,20 @@
   <div>
     <h1>Write Post</h1>
     <form @submit="savePost">
-      <input type="text" v-model="boardTitle" placeholder="Title">
-      <textarea v-model="boardContent" placeholder="Content"></textarea>
       <div>
+        <input type="text" v-model="boardTitle" placeholder="Title">
+      </div>
+      <div>
+        <textarea rows="5" cols="50" v-model="boardContent" placeholder="Content"></textarea>
+      </div>
+      <div v-if="boardFilePath===null">
         <h1>Upload File</h1>
         <input type="file" @change="handleFileChange">
         <button type="button" @click="uploadFile">Upload</button>
+      </div>
+      <div v-if="boardFilePath !== null">
+        {{ boardFilePath }}
+        <button type="button" @click="removeFile">Remove</button>
       </div>
       <button type="submit">Save</button>
     </form>
@@ -21,10 +29,10 @@ import { useRouter } from 'vue-router';
 
 const router = useRouter();
 
-const boardTitle = ref('')
-const boardContent = ref('')
+const boardTitle = ref(null)
+const boardContent = ref(null)
 const selectedFile = ref(null)
-const boardFilePath = ref('')
+const boardFilePath = ref(null)
 
 const savePost = event => {
   event.preventDefault()
@@ -68,5 +76,9 @@ const uploadFile = () => {
         console.error(error)
       })
   }
+}
+
+const removeFile = () => {
+  boardFilePath.value = null
 }
 </script>

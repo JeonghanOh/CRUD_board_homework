@@ -46,7 +46,7 @@ public class MainController {
 	
 	@Autowired
 	SearchService searchService;
-
+//dd
 	@GetMapping("/board")
 	public Page<BoardEntity> board(@RequestParam(defaultValue = "0") int page,
 	        @RequestParam(defaultValue = "10") int size,
@@ -90,19 +90,25 @@ public class MainController {
 	}
 	
 	@PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody LoginDto loginDto, HttpSession session) {
+    public LoginStatusResponse login(@RequestBody LoginDto loginDto, HttpSession session) {
         // 로그인 요청 처리 로직
         // 예: 사용자 인증, 세션 생성 등
+		
+		LoginStatusResponse lsr = new LoginStatusResponse();
 		
         // 세션에 로그인 상태 저장
 		if(loginService.isOkLogin(loginDto)) {
 			session.setAttribute("isLoggedIn", true);
 			session.setAttribute("member", loginDto.getUsername());
-	        return ResponseEntity.ok().build();
+			
+			lsr.setLoggedIn(true);
+			lsr.setUsername(loginDto.getUsername());
+			
+	        return lsr;
 		}
 
         // 로그인 성공 응답 반환
-		return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("로그인 실패!");
+		return lsr;
     }
 
     @PostMapping("/logout")
@@ -118,23 +124,19 @@ public class MainController {
         return ResponseEntity.ok().build();
     }
 
-	//dddddddddd
+	//ddd
     @GetMapping("/check-login")
     public boolean checkLoginStatus(HttpSession session) {
         // 세션에서 로그인 상태 확인
     	
         boolean isLoggedIn = session.getAttribute("isLoggedIn") != null;
-
-    	System.out.println("isLoggedIn : " + isLoggedIn);
     	
         // 로그인 상태 반환
         return isLoggedIn;
     }
 	
-	@RequestMapping("/write/{boardId}")
+	@PostMapping("/write/{boardId}")
 	public ResponseEntity<String> write_boardId(@PathVariable("boardId") int boardId, @RequestBody BoardDto boardDto) {
-		System.out.println("write/boardId");
-		System.out.println(boardId + "/" + boardDto.getBoardTitle());
 		boardDto.setBoardId(boardId);
 		boardService.updateByBoardId(boardDto);
         return ResponseEntity.ok("Post updated successfully!");
@@ -142,8 +144,6 @@ public class MainController {
 	
 	@RequestMapping("/write")
 	public ResponseEntity<String> write(@RequestBody BoardDto boardDto, HttpSession session){
-		System.out.println("check");
-		
 		try {
 	        // 받은 데이터를 이용하여 글 작성 로직을 수행
 	        // 예: 데이터베이스에 저장 등
@@ -170,7 +170,7 @@ public class MainController {
 	        
 	        Path filePath = Paths.get("C:/Users/howon/Desktop/UploadServerFile/" + uniqueFileName);
             Files.write(filePath, file.getBytes());
-	        
+            
 	        return filePath.toString();
 	    } catch (IOException e) {
 	        // 파일 저장 실패 처리

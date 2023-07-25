@@ -40,6 +40,6 @@ public interface BoardRepository extends JpaRepository<BoardEntity, Long> {
 	
 	@Modifying
 	@Transactional
-	@Query(value="update boardTbl set board_title=?2, board_content=?3 where board_id=?1", nativeQuery = true)
-	public void updateByBoardId(int boardId, String boardTitle, String boardContent);
+	@Query(value="update boardTbl set board_title=?2, board_content=?3, board_file_path=?4 where board_id=?1", nativeQuery = true)
+	public void updateByBoardId(int boardId, String boardTitle, String boardContent, String boardFilePath);
 }

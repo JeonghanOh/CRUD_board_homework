@@ -1,7 +1,10 @@
 <template>
   <div>
-    <h1>Detail Board</h1>
+    <h1>BoardDetail</h1>
     <p>{{ boardId }}</p>
+    <p>제목</p>
+    <p v-if="responseData">{{ responseData.boardTitle }}</p>
+    <p>내용</p>
     <p v-if="responseData">{{ responseData.boardContent }}</p>
     <div v-if="responseData && responseData.userId === user_id">
       <button type="button" @click="deleteDetail">Delete</button>
@@ -28,12 +31,14 @@ const router = useRouter();
 const boardId = ref(props.boardId)
 const responseData = ref(null)
 const user_id = ref(null)
+const boardFilePath = ref(null)
 
 const sendDataToSpring = () => {
   axios
     .get(`/api/detail/${boardId.value}`)
     .then(response => {
       responseData.value = response.data
+      boardFilePath.value = response.data.boardFilePath;
       console.log(response.data)
     })
     .catch(error => {
