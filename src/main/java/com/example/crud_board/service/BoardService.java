@@ -29,6 +29,7 @@ public class BoardService {
 		boardRepository.save(new BoardEntity(boardDto));
 	}
 	
+	//dd
 	public void setBlock(int boardId) {
 		boardRepository.setBlock(boardId);
 	}
