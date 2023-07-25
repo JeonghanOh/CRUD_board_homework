@@ -46,7 +46,7 @@ public class MainController {
 	
 	@Autowired
 	SearchService searchService;
-//dd
+//dddd
 	@GetMapping("/board")
 	public Page<BoardEntity> board(@RequestParam(defaultValue = "0") int page,
 	        @RequestParam(defaultValue = "10") int size,
